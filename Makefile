@@ -209,6 +209,8 @@ gen-values-schema:
 	@yq d /tmp/kubedb-catalog-values.openapiv3_schema.yaml description > charts/kubedb-catalog/values.openapiv3_schema.yaml
 	@yq r api/crds/installer.kubedb.com_kubedbenterprises.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-enterprise-values.openapiv3_schema.yaml
 	@yq d /tmp/kubedb-enterprise-values.openapiv3_schema.yaml description > charts/kubedb-enterprise/values.openapiv3_schema.yaml
+	@yq r api/crds/installer.kubedb.com_kubedbautoscalers.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-autoscaler-values.openapiv3_schema.yaml
+	@yq d /tmp/kubedb-autoscaler-values.openapiv3_schema.yaml description > charts/kubedb-autoscaler/values.openapiv3_schema.yaml
 	@yq r api/crds/installer.kubedb.com_kubedboperators.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-values.openapiv3_schema.yaml
 	@yq d /tmp/kubedb-values.openapiv3_schema.yaml description > charts/kubedb/values.openapiv3_schema.yaml
 
@@ -253,7 +255,7 @@ chart-contents-%:
 	@if [ ! -z "$(APP_VERSION)" ]; then                                                \
 		yq w -i ./charts/$*/Chart.yaml appVersion --tag '!!str' $(APP_VERSION);        \
 		case "$*" in                                                                   \
-		  kubedb | kubedb-enterprise)                                                  \
+		  kubedb | kubedb-enterprise | kubedb-autoscaler)                              \
 		    yq w -i ./charts/$*/values.yaml operator.tag --tag '!!str' $(APP_VERSION); \
 		    ;;                                                                         \
 		esac;                                                                          \

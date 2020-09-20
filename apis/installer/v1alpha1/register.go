@@ -56,6 +56,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
 		&KubeDBCatalog{},
 		&KubeDBCatalogList{},
+		&KubeDBAutoscaler{},
+		&KubeDBAutoscalerList{},
 		&KubeDBEnterprise{},
 		&KubeDBEnterpriseList{},
 		&KubeDBOperator{},
