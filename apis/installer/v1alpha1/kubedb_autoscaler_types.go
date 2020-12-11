@@ -83,6 +83,22 @@ type KubeDBAutoscalerSpec struct {
 	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
 	// +optional
 	License string `json:"license"`
+	// +optional
+	UpdateInterval string `json:"updateInterval"`
+	// +optional
+	StorageAutoscaler StorageAutoscalerSpec `json:"storageAutoscaler"`
+}
+
+type StorageAutoscalerSpec struct {
+	Prometheus PrometheusSpec `json:"prometheus"`
+}
+
+type PrometheusSpec struct {
+	Address string `json:"address"`
+	// +optional
+	BearerToken string `json:"bearerToken"`
+	// +optional
+	CACert string `json:"caCert"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
